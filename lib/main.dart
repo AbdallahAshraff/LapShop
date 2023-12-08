@@ -38,7 +38,7 @@ void main() async {
   print(loggedIn);
   if (Boarding) {
     if (loggedIn) {
-      nextScreen = LoginScreen();
+      nextScreen = ProductScreen();
     } else {
       nextScreen = LoginScreen();
     }
