@@ -22,16 +22,5 @@ class ProductCubit extends Cubit<ProductState> {
     });
   }
 
-  int quantity = 1;
-  void decrease() {
-    if (quantity>0) {
-  quantity--;
-  emit(QuantityDecreased());
-}
-  }
-
-  void increase() {
-    quantity++;
-    emit(QuantityIncreased());
-  }
+  
 }

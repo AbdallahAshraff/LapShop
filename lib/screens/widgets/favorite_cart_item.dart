@@ -1,19 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
-import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_state.dart';
-import 'package:ecommerceapp/core/managers/nav.dart';
-import 'package:ecommerceapp/models/product_model.dart';
-import 'package:ecommerceapp/screens/modules/product_details.dart';
-
+import 'package:ecommerceapp/models/favorite_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Widget buildProductItem(Product product, context) => InkWell(
-      onTap: () {
-        navigateToNextScreen(context, ProductDetails(product: product));
-      },
+Widget favoriteProductItem(FavoriteProducts favoriteProducts, context) =>
+    InkWell(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -36,7 +28,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                             child: RotatedBox(
                                 quarterTurns: 1,
                                 child: Text(
-                                  product.status!,
+                                  favoriteProducts.status!,
                                   style: const TextStyle(color: Colors.white),
                                 )),
                           ),
@@ -59,7 +51,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                                 padding:
                                     const EdgeInsets.only(right: 30, left: 10),
                                 child: CachedNetworkImage(
-                                    imageUrl: product.image!,
+                                    imageUrl: favoriteProducts.image!,
                                     imageBuilder: (context, imageProvider) =>
                                         Image(image: imageProvider),
                                     placeholder: (context, url) => const Center(
@@ -77,37 +69,6 @@ Widget buildProductItem(Product product, context) => InkWell(
                                     }),
                               ),
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  FavoriteCubit.get(context)
-                                          .favoriteID
-                                          .contains(product.sId.toString())
-                                      ? FavoriteCubit.get(context)
-                                          .deleteFavorite(product.sId)
-                                      : FavoriteCubit.get(context)
-                                          .addToFavorite(product.sId);
-                                },
-                                icon:
-                                    BlocConsumer<FavoriteCubit, FavoriteStates>(
-                                  listener: (context, state) {
-                                    // TODO: implement listener
-                                  },
-                                  builder: (context, state) {
-                                    return Icon(
-                                      FavoriteCubit.get(context)
-                                              .favoriteID
-                                              .contains(product.sId.toString())
-                                          ? Icons.favorite
-                                          : Icons.favorite_border_outlined,
-                                      size: 25,
-                                      color: FavoriteCubit.get(context)
-                                              .favoriteID
-                                              .contains(product.sId.toString())
-                                          ? Colors.red
-                                          : Colors.grey[300],
-                                    );
-                                  },
-                                )),
                           ],
                         ),
                       )
@@ -134,7 +95,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    product.name!,
+                                    favoriteProducts.name!,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
@@ -142,7 +103,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                                if (product.status == 'New')
+                                if (favoriteProducts.status == 'New')
                                   Expanded(
                                     child: Container(
                                         height: 30,
@@ -166,7 +127,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10.0),
                             child: Text(
-                              product.company!,
+                              favoriteProducts.company!,
                               style: const TextStyle(
                                   color: Colors.grey, fontSize: 15),
                             ),
@@ -179,7 +140,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                               Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                  '${product.price} \EGP',
+                                  '${favoriteProducts.price} \EGP',
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 15),
                                 ),
@@ -193,16 +154,16 @@ Widget buildProductItem(Product product, context) => InkWell(
                                           topLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(20))),
                                   child: MaterialButton(
-                                    onPressed: () {
-                                      CartCubit.get(context)
-                                          .addToCart(product.sId);
-                                    },
-                                    child: Text(
-                                      'Buy'.toUpperCase(),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ))
+                                      onPressed: () {
+                                        FavoriteCubit.get(context)
+                                            .deleteFavorite(
+                                                favoriteProducts.sId);
+                                      },
+                                      child: Text(
+                                        'Remove'.toUpperCase(),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      )))
                             ],
                           ),
                         )

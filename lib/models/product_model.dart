@@ -1,4 +1,4 @@
-class LaptopsModel{
+class LaptopsModel {
   String? status;
   String? message;
   List<Product>? product;
@@ -11,7 +11,7 @@ class LaptopsModel{
     if (json['product'] != null) {
       product = <Product>[];
       json['product'].forEach((v) {
-        product!.add( Product.fromJson(v));
+        product!.add(Product.fromJson(v));
       });
     }
   }
@@ -30,18 +30,18 @@ class Product {
   List<String>? images;
   dynamic iV;
 
-  Product(
-      {this.sId,
-        this.status,
-        this.category,
-        this.name,
-        this.price,
-        this.description,
-        this.image,
-        this.company,
-        this.countInStock,
-        this.iV,
-      });
+  Product({
+    this.sId,
+    this.status,
+    this.category,
+    this.name,
+    this.price,
+    this.description,
+    this.image,
+    this.company,
+    this.countInStock,
+    this.iV,
+  });
 
   Product.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -56,5 +56,4 @@ class Product {
     countInStock = json['countInStock'];
     iV = json['__v'];
   }
-
 }

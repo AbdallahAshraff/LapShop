@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart';
+import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/login/cubit/login_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/onboarding/on_boarding_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/products/cubit/product_cubit.dart';
@@ -70,6 +72,14 @@ class MyApp extends StatelessWidget {
         ),
          BlocProvider(
           create: (context) => ProductCubit()..getHomeProducts(),
+          lazy: false,
+        ),
+         BlocProvider(
+          create: (context) => CartCubit()..getCart(),
+          lazy: false,
+        ),
+         BlocProvider(
+          create: (context) => FavoriteCubit()..getFavorite(),
           lazy: false,
         ),
       ],
