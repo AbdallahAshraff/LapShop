@@ -18,6 +18,7 @@ class FavoriteScreen extends StatelessWidget {
         print(cubit.favorite);
         if (cubit.favorite!.favoriteProducts!.isEmpty) {
           return Scaffold(
+            
               appBar: AppBar(
                 title: const Text('Favorites'),
               ),

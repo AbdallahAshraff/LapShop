@@ -2,6 +2,8 @@ import 'package:ecommerceapp/core/controllers/cubits/products/cubit/product_cubi
 import 'package:ecommerceapp/core/controllers/cubits/products/cubit/product_state.dart';
 import 'package:ecommerceapp/screens/modules/cart.dart';
 import 'package:ecommerceapp/screens/modules/favorite.dart';
+import 'package:ecommerceapp/screens/modules/edit_profile.dart';
+import 'package:ecommerceapp/screens/modules/profile.dart';
 import 'package:ecommerceapp/screens/widgets/build_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,6 +45,13 @@ class ProductScreen extends StatelessWidget {
               leading: const Icon(Icons.favorite),
               onTap: () {
                 navigateToNextScreen(context, FavoriteScreen());
+              },
+            ),
+            ListTile(
+              title: const Text('Profile'),
+              leading: const Icon(Icons.person),
+              onTap: () {
+                navigateToNextScreen(context, const ProfileScreen());
               },
             ),
           ])),

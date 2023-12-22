@@ -5,6 +5,7 @@ import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cub
 import 'package:ecommerceapp/core/controllers/cubits/login/cubit/login_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/onboarding/on_boarding_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/products/cubit/product_cubit.dart';
+import 'package:ecommerceapp/core/controllers/cubits/profile/cubit/profile_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/registercubit/cubit/register_cubit_cubit.dart';
 import 'package:ecommerceapp/core/controllers/observer/bloc_observer.dart';
 import 'package:ecommerceapp/core/managers/themes.dart';
@@ -80,6 +81,10 @@ class MyApp extends StatelessWidget {
         ),
          BlocProvider(
           create: (context) => FavoriteCubit()..getFavorite(),
+          lazy: false,
+        ),
+         BlocProvider(
+          create: (context) => ProfileCubit()..getProfileInfo(),
           lazy: false,
         ),
       ],

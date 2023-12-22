@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:ecommerceapp/core/controllers/cubits/login/cubit/login_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/login/cubit/login_state.dart';
 import 'package:ecommerceapp/core/managers/nav.dart';
+import 'package:ecommerceapp/core/managers/values.dart';
 import 'package:ecommerceapp/core/network/local/cache_helper.dart';
 import 'package:ecommerceapp/screens/modules/prod_screen.dart';
 import 'package:ecommerceapp/screens/widgets/custom_field.dart';
@@ -24,7 +25,17 @@ class LoginScreen extends StatelessWidget {
         if (state is LoginSuccess) {
           if (state.userModel.status == "success") {
             CacheHelper.putBoolData(key: 'isLoggedIn', value: true);
-            navigateAndFinishThisScreen(context, ProductScreen());
+            CacheHelper.saveData(
+              key: 'token',
+              value: state.userModel.user!.token,
+            ).then((value) {
+              token = state.userModel.user!.token!;
+              print(token);
+              navigateAndFinishThisScreen(
+                context,
+                const ProductScreen(),
+              );
+            });
           } else {
             log(state.userModel.message!);
           }
@@ -43,9 +54,9 @@ class LoginScreen extends StatelessWidget {
             body: Stack(
               children: [
                 Align(
-              alignment: Alignment.topRight,
-              child: Image.asset('assets/images/background.png'),
-            ),
+                  alignment: Alignment.topRight,
+                  child: Image.asset('assets/images/background.png'),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Form(
