@@ -4,8 +4,18 @@ import '../../models/onboarding_model.dart';
 
 List<OnBoardingModel> onboardingList = [
   OnBoardingModel(
-      'Welcome', 'We have many products', AppImages.onBoardingImage),
+    'Welcome to LapShop',
+    'Explore a wide range of laptops for every need',
+    AppImages.onBoardingImage,
+  ),
   OnBoardingModel(
-      'Shopping', 'We have many products to shop', AppImages.onBoardingImage),
-  OnBoardingModel('Start', 'Lets start to shop', AppImages.onBoardingImage)
+    'Discover the Latest Models',
+    'Find the latest and most powerful laptops in the market',
+    AppImages.onBoardingImage,
+  ),
+  OnBoardingModel(
+    'Easy Shopping Experience',
+    'Enjoy a seamless shopping experience with LapShop',
+    AppImages.onBoardingImage,
+  ),
 ];

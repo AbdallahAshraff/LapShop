@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/login/cubit/login_cubit.dart';
@@ -15,7 +13,6 @@ import 'package:ecommerceapp/core/network/remote/dio_helper.dart';
 import 'package:ecommerceapp/screens/modules/login.dart';
 import 'package:ecommerceapp/screens/modules/on_boarding.dart';
 import 'package:ecommerceapp/screens/modules/prod_screen.dart';
-import 'package:ecommerceapp/screens/modules/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,10 +37,10 @@ void main() async {
   print(natoinalId);
   print(loggedIn);
   if (Boarding) {
-    if (loggedIn) {
-      nextScreen = ProductScreen();
+   if (loggedIn) {
+     nextScreen = ProductScreen();
     } else {
-      nextScreen = LoginScreen();
+      nextScreen = OnBoardingScreen();
     }
   } else {
     nextScreen = const OnBoardingScreen();
@@ -71,19 +68,19 @@ class MyApp extends StatelessWidget {
           create: (context) => LoginCubit(),
           lazy: true,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => ProductCubit()..getHomeProducts(),
           lazy: false,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => CartCubit()..getCart(),
           lazy: false,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => FavoriteCubit()..getFavorite(),
           lazy: false,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => ProfileCubit()..getProfileInfo(),
           lazy: false,
         ),

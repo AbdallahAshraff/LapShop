@@ -6,6 +6,7 @@ import 'package:ecommerceapp/core/managers/nav.dart';
 import 'package:ecommerceapp/core/managers/values.dart';
 import 'package:ecommerceapp/core/network/local/cache_helper.dart';
 import 'package:ecommerceapp/screens/modules/prod_screen.dart';
+import 'package:ecommerceapp/screens/modules/register.dart';
 import 'package:ecommerceapp/screens/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                           icon: Icons.email_outlined,
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         CustomTextField(
@@ -116,7 +117,10 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             const Text("Don't have an account ? "),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  navigateToNextScreen(
+                                      context, RegisterScreen());
+                                },
                                 child: const Text(
                                   'Register',
                                   style: TextStyle(color: Colors.blue),

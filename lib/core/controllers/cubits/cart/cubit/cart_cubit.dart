@@ -11,8 +11,9 @@ class CartCubit extends Cubit<CartStates> {
 
   static CartCubit get(context) => BlocProvider.of(context);
 
-  void addToCart(productId) {
-    DioHelperStore.postData(url: ApiConstants.addCartApi, data: {
+  Future<void> addToCart(productId) {
+    
+   return DioHelperStore.postData(url: ApiConstants.addCartApi, data: {
       'nationalId': natoinalId,
       'productId': productId,
       'quantity': '1'
@@ -40,8 +41,8 @@ class CartCubit extends Cubit<CartStates> {
     });
   }
 
-  void deletecart(productId) {
-    DioHelperStore.delData(url: ApiConstants.deleteCartApi, data: {
+  Future<void>deletecart(productId) {
+    return DioHelperStore.delData(url: ApiConstants.deleteCartApi, data: {
       'nationalId': natoinalId,
       'productId': productId,
     }).then((value) {

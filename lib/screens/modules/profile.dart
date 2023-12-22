@@ -18,12 +18,13 @@ class ProfileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = ProfileCubit.get(context);
+        
         return Scaffold(
           backgroundColor: Colors.grey[200],
           appBar: AppBar(
             elevation: 0.0,
             backgroundColor: Colors.grey[200],
-            title: Text(
+            title: const Text(
               'Profile',
               style: TextStyle(color: Colors.black),
             ),
@@ -34,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
                   CircleAvatar(
@@ -44,27 +45,31 @@ class ProfileScreen extends StatelessWidget {
                             'https://www.bing.com/th?id=OIP.UL-1DMfhVszKjcYlgEespAD0D_&w=159&h=185&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2')
                         : NetworkImage(cubit.profile!.user!.profileImage!),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   buildProfileInfo('Name', cubit.profile!.user!.name),
                   buildProfileInfo('Email', cubit.profile!.user!.email),
                   buildProfileInfo('Phone', cubit.profile!.user!.phone),
                 buildProfileInfo('Gender', cubit.profile!.user!.gender),
                 
 
-                  SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: () {
-                      navigateToNextScreen(context, EditProfile());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: HexColor('#07094D'),
-                      minimumSize: Size(200, 60),
-                    ),
-                    child: const Text(
-                      'Edit Profile',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
+                  const SizedBox(height: 40),
+                 ElevatedButton(
+                      onPressed: () {
+                        navigateToNextScreen(context, EditProfile());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: HexColor('#07094D'),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        elevation: 3.0,
+                        minimumSize: const Size(200, 60),
+                      ),
+                      child: const Text(
+                        'Edit Profile',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                 ),
                 ],
               ),
             ),

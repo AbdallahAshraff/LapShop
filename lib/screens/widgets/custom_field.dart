@@ -13,8 +13,8 @@ class CustomTextField extends StatelessWidget {
     this.prefixColor,
     this.hintStyle,
     required this.controller,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   TextEditingController controller;
   final String hintText;
   final IconData icon;
@@ -51,17 +51,17 @@ class CustomTextField extends StatelessWidget {
           color: prefixColor,
         ),
         labelText: hintText,
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           fontSize: 17,
           fontWeight: FontWeight.w400,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(color: Colors.black26),
+          borderSide: const BorderSide(color: Colors.black26),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: Colors.black38),
+          borderSide: const BorderSide(color: Colors.black38),
         ),
       ),
       onChanged: onChanged,

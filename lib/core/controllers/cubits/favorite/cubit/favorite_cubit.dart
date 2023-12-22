@@ -33,8 +33,8 @@ class FavoriteCubit extends Cubit<FavoriteStates> {
     });
   }
 
-  void addToFavorite(productId) {
-    DioHelperStore.postData(url: ApiConstants.favoriteApi, data: {
+  Future<void> addToFavorite(productId) {
+   return DioHelperStore.postData(url: ApiConstants.favoriteApi, data: {
       'nationalId': natoinalId,
       'productId': productId,
     }).then((value) {
@@ -47,10 +47,10 @@ class FavoriteCubit extends Cubit<FavoriteStates> {
     });
   }
 
-  void deleteFavorite(
+  Future<void> deleteFavorite(
     productId,
   ) {
-    DioHelperStore.delData(url: ApiConstants.favoriteApi, data: {
+   return DioHelperStore.delData(url: ApiConstants.favoriteApi, data: {
       'nationalId': natoinalId,
       'productId': productId,
     }).then((value) {

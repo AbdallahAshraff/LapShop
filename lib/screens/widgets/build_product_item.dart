@@ -3,7 +3,9 @@ import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart'
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_state.dart';
 import 'package:ecommerceapp/core/managers/nav.dart';
+import 'package:ecommerceapp/core/methods/show_snack_bar.dart';
 import 'package:ecommerceapp/models/product_model.dart';
+import 'package:ecommerceapp/screens/modules/cart.dart';
 import 'package:ecommerceapp/screens/modules/product_details.dart';
 
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ Widget buildProductItem(Product product, context) => InkWell(
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             width: 180,
             height: 200,
             //color: Colors.green,
@@ -78,14 +80,22 @@ Widget buildProductItem(Product product, context) => InkWell(
                               ),
                             ),
                             IconButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   FavoriteCubit.get(context)
                                           .favoriteID
                                           .contains(product.sId.toString())
-                                      ? FavoriteCubit.get(context)
-                                          .deleteFavorite(product.sId)
-                                      : FavoriteCubit.get(context)
-                                          .addToFavorite(product.sId);
+                                      ? {
+                                          await FavoriteCubit.get(context)
+                                              .deleteFavorite(product.sId),
+                                          showSnackBar(context,
+                                              '${product.name} has been removed from Favorites')
+                                        }
+                                      : {
+                                          await FavoriteCubit.get(context)
+                                              .addToFavorite(product.sId),
+                                          showSnackBar(context,
+                                              '${product.name} has been added to Favorites')
+                                        };
                                 },
                                 icon:
                                     BlocConsumer<FavoriteCubit, FavoriteStates>(
@@ -179,7 +189,7 @@ Widget buildProductItem(Product product, context) => InkWell(
                               Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                  '${product.price} \EGP',
+                                  '\$${product.price.toStringAsFixed(2)} ',
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 15),
                                 ),
@@ -193,9 +203,13 @@ Widget buildProductItem(Product product, context) => InkWell(
                                           topLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(20))),
                                   child: MaterialButton(
-                                    onPressed: () {
-                                      CartCubit.get(context)
+                                    onPressed: () async {
+                                      await CartCubit.get(context)
                                           .addToCart(product.sId);
+                                      showSnackBar(context,
+                                          '${product.name} has been added to cart');
+                                      navigateToNextScreen(
+                                          context, const CartScreen());
                                     },
                                     child: Text(
                                       'Buy'.toUpperCase(),

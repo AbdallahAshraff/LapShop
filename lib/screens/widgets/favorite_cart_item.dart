@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
+import 'package:ecommerceapp/core/methods/show_snack_bar.dart';
 import 'package:ecommerceapp/models/favorite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,7 +9,7 @@ Widget favoriteProductItem(FavoriteProducts favoriteProducts, context) =>
     InkWell(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
             width: 180,
             height: 200,
             //color: Colors.green,
@@ -140,7 +141,7 @@ Widget favoriteProductItem(FavoriteProducts favoriteProducts, context) =>
                               Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                  '${favoriteProducts.price} \EGP',
+                                  '\$${favoriteProducts.price!.toStringAsFixed(2)}',
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 15),
                                 ),
@@ -154,10 +155,12 @@ Widget favoriteProductItem(FavoriteProducts favoriteProducts, context) =>
                                           topLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(20))),
                                   child: MaterialButton(
-                                      onPressed: () {
-                                        FavoriteCubit.get(context)
+                                      onPressed: () async {
+                                        await FavoriteCubit.get(context)
                                             .deleteFavorite(
                                                 favoriteProducts.sId);
+                                        showSnackBar(context,
+                                            '${favoriteProducts.name} has been removed from Favorites');
                                       },
                                       child: Text(
                                         'Remove'.toUpperCase(),

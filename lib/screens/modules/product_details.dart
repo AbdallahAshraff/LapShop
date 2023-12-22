@@ -1,7 +1,7 @@
 import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_cubit.dart';
 import 'package:ecommerceapp/core/controllers/cubits/favorite/cubit/favorite_state.dart';
-import 'package:ecommerceapp/core/controllers/cubits/products/cubit/product_cubit.dart';
+import 'package:ecommerceapp/core/methods/show_snack_bar.dart';
 import 'package:ecommerceapp/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 class ProductDetails extends StatelessWidget {
   final Product product;
 
-  const ProductDetails({Key? key, required this.product}) : super(key: key);
+  const ProductDetails({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ProductDetails extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Details'),
+        title: const Text('Product Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,46 +38,46 @@ class ProductDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             // Product Name
             Text(
               product.name!,
-              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             // Company
             Text(
-              '${product.company!}',
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              product.company!,
+              style: const TextStyle(color: Colors.grey, fontSize: 18),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             // Price
             Text(
-              '${product.price} \EGP',
-              style: TextStyle(
+              '${product.price} EGP',
+              style: const TextStyle(
                   fontSize: 26.0,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             // Description
             Text(
               '${product.description}',
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
-            SizedBox(height: 16.0),
-            // Quantity Control
+            const SizedBox(height: 16.0),
+          
 
-            SizedBox(height: 16.0),
-            // Add to Cart and Favorites Buttons
+            const SizedBox(height: 16.0),
+           
             Row(
               children: [
-                // Add to Cart Button
+              
                 Expanded(
                   child: ElevatedButton(
                     style: ButtonStyle(
                       fixedSize:
-                          MaterialStateProperty.all(Size(double.infinity, 50)),
+                          MaterialStateProperty.all(const Size(double.infinity, 50)),
                       backgroundColor:
                           MaterialStateProperty.all(HexColor('#07094D')),
                       shape: MaterialStateProperty.all(
@@ -86,32 +86,43 @@ class ProductDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      cartCubit.addToCart(product.sId!);
+                    onPressed: () async {
+                      await cartCubit.addToCart(product.sId!).then((value) =>
+                          showSnackBar(context,
+                              '${product.name} has been added to cart'));
                     },
-                    child: Text(
+                    child: const Text(
                       'Add to Cart',
                       style: TextStyle(fontSize: 18.0, color: Colors.white),
                     ),
                   ),
                 ),
-                SizedBox(width: 16.0),
-                // Add to Favorites Button
+                const SizedBox(width: 16.0),
+               
                 IconButton(
                     onPressed: () {
                       favoriteCubit.favoriteID.contains(product.sId.toString())
-                          ? favoriteCubit.deleteFavorite(product.sId)
-                          : favoriteCubit.addToFavorite(product.sId);
+                          ? {
+                              favoriteCubit.deleteFavorite(product.sId),
+                              showSnackBar(context,
+                                  '${product.name} has been removed from Favorites')
+                            }
+                          : {
+                              favoriteCubit.addToFavorite(product.sId),
+                              showSnackBar(context,
+                                  '${product.name} has been added to Favorites')
+                            };
                     },
                     icon: BlocConsumer<FavoriteCubit, FavoriteStates>(
                       listener: (context, state) {
-                        // TODO: implement listener
+                       
                       },
                       builder: (context, state) {
                         return Icon(
-                         favoriteCubit.favoriteID
+                          favoriteCubit.favoriteID
                                   .contains(product.sId.toString())
-                              ? Icons.favorite : Icons.favorite_border,
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           size: 30,
                           color: favoriteCubit.favoriteID
                                   .contains(product.sId.toString())

@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/core/controllers/cubits/cart/cubit/cart_cubit.dart';
+import 'package:ecommerceapp/core/methods/show_snack_bar.dart';
 import 'package:ecommerceapp/models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -77,7 +78,7 @@ Widget buildCartItem(CartProducts cartProducts, context) => Container(
                         Row(
                           children: [
                             Text(
-                              '\$${cartProducts.totalPrice!}',
+                              '\$${cartProducts.totalPrice.toStringAsFixed(2)!}',
                               style: TextStyle(
                                   color: HexColor('#07094D'),
                                   fontSize: 16,
@@ -117,9 +118,13 @@ Widget buildCartItem(CartProducts cartProducts, context) => Container(
                           height: 12,
                         ),
                         InkWell(
-                          onTap: () {
-                            CartCubit.get(context)
-                                .deletecart(cartProducts.sId!);
+                          onTap: () async {
+                            await CartCubit.get(context)
+                                .deletecart(cartProducts.sId!).then((value) {
+                                   showSnackBar(context,
+                                '${cartProducts.name} has been removed from cart');
+                                });
+                           
                           },
                           child: Row(
                             children: [
@@ -127,8 +132,8 @@ Widget buildCartItem(CartProducts cartProducts, context) => Container(
                                 Icons.delete,
                                 color: Colors.grey,
                               ),
-                              Text('Remove'),
-                              Spacer(),
+                              const Text('Remove'),
+                              const Spacer(),
                               InkWell(
                                 onTap: () {
                                   cartProducts.quantity == 1
@@ -164,9 +169,11 @@ Widget buildCartItem(CartProducts cartProducts, context) => Container(
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () {
-                                  CartCubit.get(context)
+                                onTap: () async {
+                                  await CartCubit.get(context)
                                       .addToCart(cartProducts.sId);
+                                  showSnackBar(context,
+                                      '${cartProducts.name} has been added to cart');
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

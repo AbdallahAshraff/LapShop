@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class DefaultButton extends StatelessWidget {
   Widget buttonWidget;
   Function() function;
@@ -13,10 +14,10 @@ class DefaultButton extends StatelessWidget {
     this.height = 50,
     required this.buttonWidget,
     required this.function,
-    this.backgroundColor = Colors.blue ,
+    this.backgroundColor = Colors.black,
     this.width = double.infinity,
     this.isUpperCase = true,
-    this.radius = 10.0,
+    this.radius = 5.0,
     this.borderColor = Colors.transparent,
   });
 
@@ -31,6 +32,7 @@ class DefaultButton extends StatelessWidget {
         color: backgroundColor,
       ),
       child: MaterialButton(
+        height: 60,
         onPressed: function,
         child: buttonWidget,
       ),

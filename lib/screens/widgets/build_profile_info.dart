@@ -8,7 +8,7 @@ Widget buildProfileInfo(String? label, String? value) {
         children: [
           Text(
             label!,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -16,7 +16,7 @@ Widget buildProfileInfo(String? label, String? value) {
           ),
           Text(
             value!,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               color: Colors.black54,
             ),

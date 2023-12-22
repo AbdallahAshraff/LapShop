@@ -8,7 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../widgets/botton.dart';
 
 class CartScreen extends StatelessWidget {
-  CartScreen({Key? key}) : super(key: key);
+  const CartScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartStates>(
@@ -16,7 +16,7 @@ class CartScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = CartCubit.get(context);
           if (cubit.cartModel == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return Scaffold(
               backgroundColor: Colors.grey[200],
