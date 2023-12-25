@@ -1,4 +1,4 @@
-# ecommerceapp
+# LapShop
 
 A new Flutter project.
 
